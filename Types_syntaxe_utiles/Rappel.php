@@ -32,16 +32,11 @@ $normalized = [
 
 print_r($normalized);
 
+$defaults =[
+'per_page' => 10,
+'sort' =>'created_desc',
+];
 
-
-
-/*
-Array
-(
-  [title] => PHP 8 en pratique
-  [excerpt] =>
-  [views] => 300
-  [published] => 1
-  [author] => Yassine
-)
-*/
+$userQuery =['per_page'=> null];
+$userQuery['per_page'] ??= $defaults['per_page'];
+$userQuery['sort']    ??= $defaults['sort'];
