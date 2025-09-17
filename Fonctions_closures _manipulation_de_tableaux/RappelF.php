@@ -17,3 +17,14 @@ function slugify(string $title): string {
 $published = array_values(
   array_filter($articles, fn(array $a) => $a['published'] ?? false)
 );
+
+$light = array_map(
+  fn(array $a) => [
+    'id'    => $a['id'],
+    'title' => $a['title'],
+    'slug'  => slugify($a['title']),
+    'views' => $a['views'],
+  ],
+  $published
+);
+
