@@ -28,13 +28,13 @@ $light = array_map(
   $published
 );
 
-
+//Find the top 3 most viewed
 $top = $light;
 usort($top, fn($a, $b) => $b['views'] <=> $a['views']);
 $top3 = array_slice($top, 0, 3);
 
 
-//This function counts how many published articles each author has
+//Count articles per author
 $byAuthor = array_reduce(
   $published,
   function(array $acc, array $a): array {
@@ -44,3 +44,31 @@ $byAuthor = array_reduce(
   },
   []
 );
+
+//Count how many times each tag appears
+$allTags = array_merge(...array_map(fn($a) => $a['tags'], $published));
+
+$tagFreq = array_reduce(
+  $allTags,
+  function(array $acc, string $tag): array {
+      $acc[$tag] = ($acc[$tag] ?? 0) + 1;
+      return $acc;
+  },
+  []
+);
+
+
+echo "Top 3 (views):\n";
+foreach ($top3 as $a) {
+  echo "- {$a['title']} ({$a['views']} vues) — {$a['slug']}\n";
+}
+
+echo "\nPar auteur:\n";
+foreach ($byAuthor as $author => $count) {
+  echo "- $author: $count article(s)\n";
+}
+
+echo "\nTags:\n";
+foreach ($tagFreq as $tag => $count) {
+  echo "- $tag: $count\n";
+}
