@@ -28,3 +28,19 @@ $light = array_map(
   $published
 );
 
+
+$top = $light;
+usort($top, fn($a, $b) => $b['views'] <=> $a['views']);
+$top3 = array_slice($top, 0, 3);
+
+
+//This function counts how many published articles each author has
+$byAuthor = array_reduce(
+  $published,
+  function(array $acc, array $a): array {
+      $author = $a['author'];
+      $acc[$author] = ($acc[$author] ?? 0) + 1;
+      return $acc;
+  },
+  []
+);
