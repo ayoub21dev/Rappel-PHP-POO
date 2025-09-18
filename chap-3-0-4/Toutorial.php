@@ -55,5 +55,3 @@ foreach ($articles as $art) {
     $data = $art->toArray();
     echo "- {$data['title']} ({$data['views']} vues) — slug: {$data['slug']}\n";
 }
-
-
